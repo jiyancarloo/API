@@ -5,7 +5,7 @@ import {
   SidebarInset,
 } from "@/components/ui/sidebar"
 import { TooltipProvider } from "@/components/ui/tooltip"
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar } from "@/features/products/components/app-sidebar"
 
 export default function Master() {
   return (

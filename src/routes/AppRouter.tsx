@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Dashboard from "@/pages/Dashboard"
-import ViewProducts from "@/pages/Product"
+import Dashboard from "@/features/products/pages/Dashboard"
+import ViewProducts from "@/features/products/pages/Product"
 import Master from "@/layout/Master"
 
 export default function AppRouter() {
