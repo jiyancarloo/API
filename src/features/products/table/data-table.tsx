@@ -19,11 +19,8 @@ import { DataTableToolBar } from "./tool-bar-table"
 
 type DataTableProps = {
   columns: ColumnDef<Product>[]
-
   data: Product[]
-
   params: ProductParams
-
   setParams: React.Dispatch<React.SetStateAction<ProductParams>>
 }
 
@@ -45,15 +42,8 @@ export function DataTable({
 
   return (
     <>
-      <div className="">
-        <div className="mb-4">
-          <DataTableToolBar
-            table={table}
-            params={params}
-            setParams={setParams}
-          />
-        </div>
-
+      <div className="rounded-lg border">
+        <DataTableToolBar table={table} params={params} setParams={setParams} />
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
