@@ -14,7 +14,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { NavLink } from "react-router-dom"
-import { LayoutDashboard, Barcode, Command } from "lucide-react"
+import { LayoutDashboard, Cuboid } from "lucide-react"
 import { useSidebar } from "@/components/ui/sidebar"
 
 export function AppSidebar() {
@@ -24,29 +24,43 @@ export function AppSidebar() {
     {
       title: "Dashboard",
       path: "/",
-      icon: <LayoutDashboard />,
+      icon: <LayoutDashboard absoluteStrokeWidth className="" />,
     },
     {
       title: "Products",
       path: "/products",
-      icon: <Barcode />,
+      icon: <Cuboid absoluteStrokeWidth />,
     },
   ]
   return (
-    <Sidebar variant="inset" collapsible="icon">
+    <Sidebar collapsible="icon" className="">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
+            <SidebarMenuButton
+              size="lg"
+              asChild
+              className="group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0"
+            >
               <a href="#">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <Command className="size-4" />
+                {/* Logo Container */}
+                <div className="flex size-10 items-center justify-center overflow-hidden rounded-xl transition-all duration-500 group-data-[collapsible=icon]:size-10">
+                  <img
+                    src="/icon.png"
+                    alt="API Test"
+                    className="h-full w-full"
+                  />
                 </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="font-regular truncate font-sans">
+
+                {/* Text */}
+                <div className="grid flex-1 leading-tight transition-all duration-500 group-data-[collapsible=icon]:hidden">
+                  <span className="truncate font-sans text-base font-medium">
                     API Test
                   </span>
-                  <span className="truncate text-xs">Enterprise</span>
+
+                  <span className="truncate text-xs text-muted-foreground">
+                    Enterprise
+                  </span>
                 </div>
               </a>
             </SidebarMenuButton>
@@ -61,16 +75,25 @@ export function AppSidebar() {
               <SidebarMenuItem key={index}>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <SidebarMenuButton asChild>
-                      <NavLink to={item.path}>
-                        {item.icon}
-                        {!collapsed && (
-                          <span className="tracking ml-2 font-sans">
-                            {item.title}
-                          </span>
-                        )}
-                      </NavLink>
-                    </SidebarMenuButton>
+                    <NavLink to={item.path}>
+                      {({ isActive }) => (
+                        <SidebarMenuButton
+                          className={
+                            isActive
+                              ? "rounded-full bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
+                              : "hover:bg-muted"
+                          }
+                        >
+                          {item.icon}
+
+                          {!collapsed && (
+                            <span className="tracking ml-2 font-sans">
+                              {item.title}
+                            </span>
+                          )}
+                        </SidebarMenuButton>
+                      )}
+                    </NavLink>
                   </TooltipTrigger>
 
                   {collapsed && (
