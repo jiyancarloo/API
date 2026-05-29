@@ -16,7 +16,7 @@ export default function StatCards() {
     )
   return (
     <>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid gap-4 sm:grid-cols-1 lg:grid-cols-4">
         <Card>
           <CardHeader>
             <p className="text-gray-500">Total Products</p>
