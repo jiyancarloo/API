@@ -4,17 +4,6 @@ import { getProducts } from "@/features/products/api/use.product"
 import { useQuery } from "@tanstack/react-query"
 import { useDebounce } from "./useDebounce"
 
-export type Product = {
-  id: number
-  title: string
-  price: number
-  stock: number
-  thumbnail: string
-  description: string
-  images: string[]
-  category: string
-  tags: string[]
-}
 export function useProduct() {
   const [params, setParams] = useState<ProductParams>({
     limit: 10,
