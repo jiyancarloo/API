@@ -48,7 +48,7 @@ export function AppSidebar() {
                   <img
                     src="/icon.png"
                     alt="API Test"
-                    className="h-full w-full"
+                    className="h-full w-full object-contain p-1"
                   />
                 </div>
 
