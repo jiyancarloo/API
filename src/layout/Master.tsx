@@ -11,7 +11,7 @@ export default function Master() {
           <AppSidebar />
 
           <div className="w-full">
-            <header className="my-1 flex h-14 items-center px-4">
+            <header className="my-2 flex h-14 items-center px-4">
               <SidebarTrigger />
             </header>
             <main className="flex-1 p-6">

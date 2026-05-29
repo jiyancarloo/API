@@ -55,11 +55,11 @@ export function AppSidebar() {
                 {/* Text */}
                 <div className="grid flex-1 leading-tight transition-all duration-500 group-data-[collapsible=icon]:hidden">
                   <span className="truncate font-sans text-base font-medium">
-                    API Test
+                    Online Quotation
                   </span>
 
                   <span className="truncate text-xs text-muted-foreground">
-                    Enterprise
+                    v 2.0 Pro Max
                   </span>
                 </div>
               </a>
