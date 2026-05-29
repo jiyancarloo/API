@@ -6,6 +6,5 @@ export const getCategories = async (): Promise<Category[]> => {
   if (!response.ok) {
     throw new Error("Failed to fetch categories")
   }
-
   return response.json()
 }
