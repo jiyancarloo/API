@@ -334,7 +334,7 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="sidebar-header"
       data-sidebar="header"
       className={cn(
-        "flex flex-col gap-4 p-4 [--radius:var(--radius-xl)]",
+        "flex flex-col gap-4 p-2 [--radius:var(--radius-xl)] group-data-[collapsible=icon]:p-3.5",
         className
       )}
       {...props}
