@@ -1,5 +1,4 @@
 import type { ProductParams } from "@/features/products/types/product.types"
-import { Link } from "react-router-dom"
 import type { Table } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import {
@@ -13,7 +12,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group"
-import { SearchIcon, ListFilterPlus, Plus } from "lucide-react"
+import { SearchIcon, ListFilterPlus } from "lucide-react"
 import {
   Select,
   SelectContent,
@@ -22,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useCategories } from "../hooks/useCategory"
+import { ProductDialog } from "../components/ProductCreateDialog"
 
 type Props<TData> = {
   table: Table<TData>
@@ -37,7 +37,7 @@ export function DataTableToolBar<TData>({
 
   return (
     <>
-      <div className="flex items-center justify-end gap-3 border-b px-6 py-6">
+      <div className="flex items-center justify-end gap-3 rounded-md border-b px-6 py-6">
         <div className="flex-1">
           <InputGroup className="w-70">
             <InputGroupInput
@@ -70,7 +70,7 @@ export function DataTableToolBar<TData>({
             }))
           }
         >
-          <SelectTrigger className="w-50">
+          <SelectTrigger className="">
             <SelectValue placeholder="Filter Category" />
           </SelectTrigger>
 
@@ -110,11 +110,8 @@ export function DataTableToolBar<TData>({
               })}
           </DropdownMenuContent>
         </DropdownMenu>
-        <Link to={"/products/add-product"}>
-          <Button size="icon-lg" className="">
-            <Plus />
-          </Button>
-        </Link>
+
+        <ProductDialog />
       </div>
     </>
   )
