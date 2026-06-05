@@ -1,24 +1,41 @@
-import { Outlet } from "react-router-dom"
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { Outlet, useLocation } from "react-router-dom"
+import {
+  SidebarProvider,
+  SidebarTrigger,
+  SidebarInset,
+} from "@/components/ui/sidebar"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { AppSidebar } from "@/features/products/components/app-sidebar"
 import { Toaster } from "@/components/ui/sonner"
+import { Separator } from "@/components/ui/separator"
 export default function Master() {
+  const location = useLocation()
+
+  const titles: Record<string, string> = {
+    "/": "Dashboard",
+    "/products": "Product",
+  }
+
+  const title = titles[location.pathname] || ""
+
   return (
     <div className="flex min-h-screen">
       <TooltipProvider>
         <SidebarProvider>
           <AppSidebar />
-
-          <div className="w-full">
-            <header className="my-2 flex h-14 items-center px-4">
-              <SidebarTrigger />
-            </header>
-            <main className="flex-1 p-6">
-              <Outlet />
-              <Toaster />
-            </main>
-          </div>
+          <SidebarInset>
+            <div className="w-full">
+              <header className="my-1 flex h-14 items-center gap-3 border-b px-4">
+                <SidebarTrigger />
+                <Separator orientation="vertical" className="my-4" />
+                <span className="px-1 text-base">{title}</span>
+              </header>
+              <main className="flex-1 p-6">
+                <Outlet />
+                <Toaster />
+              </main>
+            </div>
+          </SidebarInset>
         </SidebarProvider>
       </TooltipProvider>
     </div>
