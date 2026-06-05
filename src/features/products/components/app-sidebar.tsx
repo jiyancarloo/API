@@ -24,27 +24,23 @@ export function AppSidebar() {
     {
       title: "Dashboard",
       path: "/",
-      icon: <LayoutDashboard absoluteStrokeWidth className="" />,
+      icon: <LayoutDashboard absoluteStrokeWidth />,
     },
     {
       title: "Products",
       path: "/products",
-      icon: <Cuboid absoluteStrokeWidth />,
+      icon: <Cuboid />,
     },
   ]
   return (
-    <Sidebar collapsible="icon" className="">
+    <Sidebar variant="inset" collapsible="icon">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              size="lg"
-              asChild
-              className="group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0"
-            >
+            <SidebarMenuButton size="lg" asChild>
               <a href="#">
                 {/* Logo Container */}
-                <div className="flex size-10 items-center justify-center overflow-hidden rounded-xl transition-all duration-500 group-data-[collapsible=icon]:size-10">
+                <div className="flex size-12 items-center justify-center overflow-hidden rounded-xl transition-all duration-500">
                   <img
                     src="/icon.png"
                     alt="API Test"
