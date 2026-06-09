@@ -25,12 +25,12 @@ export default function Master() {
           <AppSidebar />
           <SidebarInset>
             <div className="w-full">
-              <header className="my-1 flex h-14 items-center gap-3 border-b px-4">
+              <header className="flex h-14 items-center gap-3 border-b px-4">
                 <SidebarTrigger />
                 <Separator orientation="vertical" className="my-4" />
                 <span className="px-1 text-base">{title}</span>
               </header>
-              <main className="flex-1 p-6">
+              <main className="flex-1">
                 <Outlet />
                 <Toaster />
               </main>
