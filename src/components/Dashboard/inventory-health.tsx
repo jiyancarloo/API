@@ -9,31 +9,23 @@ import {
 } from "../ui/card"
 
 export default function InventoryHealth() {
-  const {
-    healthy,
-    lowStock,
-    noStock,
-    healthyPercentage,
-    lowStockPercentage,
-    noStockPercentage,
-    totalInventory,
-  } = useDashboardStats()
+  const { inventory } = useDashboardStats()
 
   const healthItems = [
     {
       label: "Healthy",
-      value: healthy,
-      percentage: healthyPercentage,
+      value: inventory.healthy,
+      percentage: inventory.healthyPercentage,
     },
     {
       label: "Low in Stock",
-      value: lowStock,
-      percentage: lowStockPercentage,
+      value: inventory.lowStock,
+      percentage: inventory.lowStockPercentage,
     },
     {
       label: "Out of Stock",
-      value: noStock,
-      percentage: noStockPercentage,
+      value: inventory.noStock,
+      percentage: inventory.noStockPercentage,
     },
   ]
 
@@ -41,7 +33,7 @@ export default function InventoryHealth() {
     <Card>
       <CardHeader className="flex items-center justify-between">
         <CardTitle>Inventory Health</CardTitle>
-        <CardAction>{totalInventory} products analyzed</CardAction>
+        <CardAction>{inventory.totalInventory} products analyzed</CardAction>
       </CardHeader>
       <CardContent className="space-y-4">
         {healthItems.map((item) => (
