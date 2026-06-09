@@ -36,12 +36,12 @@ export function AppPagination({
   onPageChange,
   onPageSizeChange,
 }: PaginationProps) {
-  const PAGE_SIZES = [5, 10, 15, 20]
+  const PAGE_SIZES = [5, 13, 15, 20]
   const isFirstPage = currentPage === 1
   const isLastPage = currentPage === totalPages
 
   return (
-    <div className="flex items-center justify-end">
+    <div className="flex items-center justify-end p-4">
       {/* ROWS PER PAGE */}
       <div className="flex items-center gap-2">
         <p className="text-sm">Rows per page : </p>
