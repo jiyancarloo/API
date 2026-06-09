@@ -1,5 +1,11 @@
 import { getProducts } from "@/features/products/api/use.product"
 import { useQuery } from "@tanstack/react-query"
+import {
+  getInventoryHealth,
+  getLowStockProducts,
+  getRecentProducts,
+} from "../utils/inventory.utils"
+import { getDashboardStats } from "../utils/product.utils"
 
 export function useDashboardStats() {
   const { data, isLoading } = useQuery({
@@ -13,33 +19,10 @@ export function useDashboardStats() {
   })
 
   const products = data?.products ?? []
-  const total = data?.total ?? 0
-  const totalValue = products.reduce((sum, p) => sum + p.price, 0)
-  const avgPrice = products.length > 0 ? totalValue / products.length : 0
-  const categoriesCount = new Set(products.map((p) => p.category)).size
-
-  const recentProducts = products.slice(0, 5)
-
-  const healthy = products.filter((p) => p.stock >= 20).length
-
-  const lowStock = products.filter((p) => p.stock < 20).length
-
-  const noStock = products.filter((p) => p.stock === 0).length
-
-  const totalInventory = healthy + lowStock + noStock
-
-  const healthyPercentage = (healthy / totalInventory) * 100
-  const lowStockPercentage = (lowStock / totalInventory) * 100
-  const noStockPercentage = (noStock / totalInventory) * 100
-
-  const lowStockProducts = products
-    .filter((p) => p.stock < 20)
-    .map((product) => ({
-      ...product,
-      severity: product.stock <= 5 ? "critical" : "low",
-    }))
-    .sort((a, b) => a.stock - b.stock)
-    .slice(0, 5)
+  const stats = getDashboardStats(products)
+  const inventory = getInventoryHealth(products)
+  const recentProducts = getRecentProducts(products)
+  const lowStockProducts = getLowStockProducts(products)
 
   const categoryDistribution = products.reduce(
     (acc, product) => {
@@ -75,21 +58,12 @@ export function useDashboardStats() {
       : topCategories
 
   return {
-    total,
-    totalValue,
-    avgPrice,
-    categoriesCount,
     loading: isLoading,
-    healthy,
-    lowStock,
-    noStock,
-    healthyPercentage,
-    lowStockPercentage,
-    noStockPercentage,
-    totalInventory,
     categoryChartData,
-    recentProducts,
     finalCategoryChartData,
+    stats,
+    inventory,
     lowStockProducts,
+    recentProducts,
   }
 }
