@@ -1,9 +1,9 @@
 import type { ColumnDef } from "@tanstack/react-table"
 import type { Product, ProductParams } from "../types/product.types"
 import { Badge } from "@/components/ui/badge"
-import { TriangleAlert, CircleCheck, MoreHorizontal } from "lucide-react"
+import { MoreHorizontal } from "lucide-react"
 import { ColumnHeader } from "./column-header"
-import { HeaderDrawer } from "./header-drawer"
+
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -11,6 +11,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu"
+import { Checkbox } from "@/components/ui/checkbox"
+import { getProductInventoryStatus } from "../utils/product.utils"
 
 export const getColumns = (
   params: ProductParams,
@@ -18,6 +20,22 @@ export const getColumns = (
   onEdit: (product: Product) => void,
   onDelete: (product: Product) => void
 ): ColumnDef<Product>[] => [
+  {
+    accessorKey: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={table.getIsAllRowsSelected()}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+      />
+    ),
+
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+      />
+    ),
+  },
   {
     accessorKey: "title",
     header: () => (
@@ -33,9 +51,18 @@ export const getColumns = (
       const product = row.original
       return (
         <>
-          <HeaderDrawer product={product}>
-            <Button variant="link">{product.title}</Button>
-          </HeaderDrawer>
+          <div className="flex items-center gap-3">
+            <img
+              src={product.thumbnail}
+              alt={product.title}
+              className="h-12 w-12 rounded-md object-cover"
+            />
+
+            <div>
+              <p className="font-medium">{product.title}</p>
+              <p className="text-xs text-muted-foreground">{product.brand}</p>
+            </div>
+          </div>
         </>
       )
     },
@@ -58,29 +85,17 @@ export const getColumns = (
   },
   {
     accessorKey: "stock",
-    header: "Stock",
+    header: "Inventory",
+    cell: ({ row }) => <span>{row.original.stock} units</span>,
   },
   {
-    accessorKey: "availability ",
-    header: "Availability",
+    accessorKey: "status",
+    header: "Status",
     cell: ({ row }) => {
-      const stock = row.original.stock
-      const isLowStock = stock <= 10
+      const status = getProductInventoryStatus(row.original.stock)
       return (
         <>
-          <Badge variant={isLowStock ? "destructive" : "default"}>
-            {isLowStock ? (
-              <>
-                Low in Stock
-                <TriangleAlert />
-              </>
-            ) : (
-              <>
-                In Stock
-                <CircleCheck />
-              </>
-            )}
-          </Badge>
+          <Badge variant={status.variant}>{status.label}</Badge>
         </>
       )
     },
@@ -122,17 +137,4 @@ export const getColumns = (
       )
     },
   },
-  /* {
-    accessorKey: "tags",
-    header: "Tags",
-    cell: ({ row }) => (
-      <div className="flex flex-wrap gap-1">
-        {row.original.tags.map((tag, i) => (
-          <Badge variant="outline" key={i}>
-            {tag}
-          </Badge>
-        ))}
-      </div>
-    ),
-  }, */
 ]
