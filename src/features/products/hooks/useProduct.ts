@@ -23,6 +23,7 @@ export function useProduct() {
   const { data, isLoading, isFetching, error } = useQuery({
     queryKey: ["products", queryParams],
     queryFn: () => getProducts(queryParams),
+    placeholderData: (previousData) => previousData,
   })
 
   const total = data?.total ?? 0
