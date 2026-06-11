@@ -37,10 +37,10 @@ export function AppSidebar() {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
+            <SidebarMenuButton asChild>
               <a href="#">
                 {/* Logo Container */}
-                <div className="flex size-12 items-center justify-center overflow-hidden rounded-xl transition-all duration-500">
+                <div className="flex size-10 items-center justify-center overflow-hidden rounded-xl transition-all duration-500">
                   <img
                     src="/icon.png"
                     alt="API Test"
@@ -50,8 +50,8 @@ export function AppSidebar() {
 
                 {/* Text */}
                 <div className="grid flex-1 leading-tight transition-all duration-500 group-data-[collapsible=icon]:hidden">
-                  <span className="truncate font-sans text-base font-medium">
-                    Online Quotation
+                  <span className="truncate font-sans text-sm font-medium">
+                    Inventory Management
                   </span>
 
                   <span className="truncate text-xs text-muted-foreground">

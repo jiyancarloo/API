@@ -22,6 +22,8 @@ type DataTableProps = {
   data: Product[]
   params: ProductParams
   setParams: React.Dispatch<React.SetStateAction<ProductParams>>
+
+  onSelectProduct: (product: Product) => void
 }
 
 export function DataTable({
@@ -29,20 +31,25 @@ export function DataTable({
   data,
   params,
   setParams,
+  onSelectProduct,
 }: DataTableProps) {
   const [columnVisibility, setColumnVisiblity] = useState({})
 
+  const [rowSelection, setRowSelection] = useState({})
   const table = useReactTable({
     data,
     columns,
-    state: { columnVisibility },
+    state: { columnVisibility, rowSelection },
+    onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
     onColumnVisibilityChange: setColumnVisiblity,
+    enableRowSelection: true,
   })
 
+  console.log(table.getSelectedRowModel().rows)
   return (
     <>
-      <div className="rounded-lg border">
+      <div>
         <DataTableToolBar table={table} params={params} setParams={setParams} />
         <Table>
           <TableHeader>
@@ -62,7 +69,12 @@ export function DataTable({
 
           <TableBody>
             {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
+              <TableRow
+                key={row.id}
+                data-state={row.getIsSelected() && "selected"}
+                onClick={() => onSelectProduct(row.original)}
+                className="cursor-pointer"
+              >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

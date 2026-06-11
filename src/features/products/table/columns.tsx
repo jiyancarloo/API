@@ -1,6 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table"
 import type { Product, ProductParams } from "../types/product.types"
-import { Badge } from "@/components/ui/badge"
 import { MoreHorizontal } from "lucide-react"
 import { ColumnHeader } from "./column-header"
 
@@ -12,7 +11,6 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu"
 import { Checkbox } from "@/components/ui/checkbox"
-import { getProductInventoryStatus } from "../utils/product.utils"
 
 export const getColumns = (
   params: ProductParams,
@@ -22,6 +20,7 @@ export const getColumns = (
 ): ColumnDef<Product>[] => [
   {
     accessorKey: "select",
+    enableHiding: false,
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllRowsSelected()}
@@ -87,18 +86,6 @@ export const getColumns = (
     accessorKey: "stock",
     header: "Inventory",
     cell: ({ row }) => <span>{row.original.stock} units</span>,
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => {
-      const status = getProductInventoryStatus(row.original.stock)
-      return (
-        <>
-          <Badge variant={status.variant}>{status.label}</Badge>
-        </>
-      )
-    },
   },
   {
     id: "actions",

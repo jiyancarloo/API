@@ -2,13 +2,7 @@ import type { Product } from "../types/product.types"
 type ProductPanelProps = {
   product: Product | null
 }
-
-import {
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { getProductInventoryStatus } from "../utils/product.utils"
 import { Progress } from "@/components/ui/progress"
@@ -37,17 +31,17 @@ export default function ProductPanel({ product }: ProductPanelProps) {
 
         <div>
           <h2 className="text-xl font-semibold">{product.title}</h2>
-          <span>{product.category}</span>
+          <span className="text-muted-foreground">{product.brand}</span>
         </div>
       </div>
       <Separator />
 
       <div className="py-6">
-        <CardHeader>
+        <CardHeader className="flex gap-1">
           <CardTitle>Inventory</CardTitle>
         </CardHeader>
 
-        <CardContent className="mt-4 space-y-4">
+        <CardContent className="mt-2 space-y-4">
           <div className="flex items-start justify-between">
             <div>
               <p className="text-3xl font-semibold">{product.stock}</p>
@@ -73,7 +67,7 @@ export default function ProductPanel({ product }: ProductPanelProps) {
           <CardTitle>Pricing</CardTitle>
         </CardHeader>
 
-        <CardContent className="mt-4 space-y-3">
+        <CardContent className="mt-2 space-y-3">
           <div className="flex justify-between">
             <span className="text-sm text-muted-foreground">Unit Price</span>
 
@@ -95,7 +89,7 @@ export default function ProductPanel({ product }: ProductPanelProps) {
         <CardHeader>
           <CardTitle>Organization</CardTitle>
         </CardHeader>
-        <CardContent className="mt-4 space-y-3">
+        <CardContent className="mt-2 space-y-3">
           <div className="flex justify-between">
             <p className="text-sm text-muted-foreground">Category</p>
             <p className="text-sm leading-relaxed">{product.category}</p>
@@ -121,10 +115,10 @@ export default function ProductPanel({ product }: ProductPanelProps) {
       <Separator />
       <div className="py-6">
         <CardHeader>
-          <CardDescription>Description</CardDescription>
+          <CardTitle>Description</CardTitle>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="mt-2">
           <p className="text-sm leading-relaxed">{product.description}</p>
         </CardContent>
       </div>

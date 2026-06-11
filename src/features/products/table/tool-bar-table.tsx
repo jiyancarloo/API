@@ -37,7 +37,7 @@ export function DataTableToolBar<TData>({
 
   return (
     <>
-      <div className="flex items-center justify-end gap-3 rounded-md border-b px-6 py-6">
+      <div className="flex items-center justify-end gap-3 border-b px-6 py-6">
         <div className="flex-1">
           <InputGroup className="w-70">
             <InputGroupInput
@@ -53,11 +53,17 @@ export function DataTableToolBar<TData>({
               }
               className=""
             />
+
             <InputGroupAddon align="inline-start">
               <SearchIcon className="text-muted-foreground" />
             </InputGroupAddon>
           </InputGroup>
         </div>
+
+        <p className="inline-flex text-sm text-muted-foreground">
+          {table.getFilteredSelectedRowModel().rows.length} of{" "}
+          {table.getFilteredRowModel().rows.length} row(s) selected
+        </p>
 
         <Select
           value={params.category}

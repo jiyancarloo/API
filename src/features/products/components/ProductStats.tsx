@@ -17,6 +17,7 @@ export default function ProductStats() {
             <CardDescription>{stats.totalProducts}</CardDescription>
           </CardHeader>
         </Card>
+
         <Card>
           <CardHeader>
             <CardTitle>Total Products</CardTitle>
