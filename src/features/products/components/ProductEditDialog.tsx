@@ -4,7 +4,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-
+import { toast } from "sonner"
 import ProductForm from "./ProductForm"
 import type { CreateProductPayload, Product } from "../types/product.types"
 import { useUpdateProduct } from "../hooks/useUpdateProduct"
@@ -23,10 +23,15 @@ export default function EditProductDialog({
   const { mutateAsync, isPending } = useUpdateProduct()
 
   const handleUpdate = async (data: CreateProductPayload) => {
-    await mutateAsync({
-      id: product.id,
-      data,
+    toast.promise(mutateAsync({ id: product.id, data }), {
+      loading: "Please wait to complete",
+      success: {
+        message: "Product Edited",
+        description: `${product.title} edited successfully`,
+      },
+      error: "Error editing product",
     })
+
     onOpenChange(false)
   }
 
