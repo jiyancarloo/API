@@ -37,7 +37,7 @@ export function HeaderDrawer({ product, children }: Props) {
         <div className="flex flex-col gap-4 overflow-y-auto px-4">
           {/* Product image */}
           <img
-            src={product.images[0]}
+            src={product.images?.[0]}
             alt={product.description}
             className="aspect-square rounded-md"
           />
