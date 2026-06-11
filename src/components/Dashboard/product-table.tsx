@@ -6,6 +6,8 @@ import { DataTable } from "@/features/products/table/data-table"
 import { getColumns } from "@/features/products/table/columns"
 import EditProductDialog from "@/features/products/components/ProductEditDialog"
 import DeleteProductDialog from "@/features/products/components/ProductDeleteDialog"
+import ProductPanel from "@/features/products/table/product-panel"
+import ProductStats from "@/features/products/components/ProductStats"
 
 export default function TableView() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
@@ -13,6 +15,7 @@ export default function TableView() {
   const [isEditOpen, setIsEditOpen] = useState(false)
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+
   const {
     products,
     loading,
@@ -45,42 +48,52 @@ export default function TableView() {
 
   return (
     <>
-      <div className="flex flex-col gap-4">
-        <DataTable
-          columns={columns}
-          data={products}
-          params={params}
-          setParams={setParams}
-        />
-        <AppPagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          pageSize={params.limit ?? 10}
-          onPageChange={goToPage}
-          onPageSizeChange={(size) => {
-            setParams((prev) => ({
-              ...prev,
-              limit: size,
-              skip: 0,
-            }))
-          }}
-        />
-
-        {selectedProduct && (
-          <EditProductDialog
-            open={isEditOpen}
-            onOpenChange={setIsEditOpen}
-            product={selectedProduct}
+      <div className="grid grid-cols-[70%_30%]">
+        <div className="flex flex-col">
+          <ProductStats />
+          <DataTable
+            columns={columns}
+            data={products}
+            params={params}
+            setParams={setParams}
+            onSelectProduct={setSelectedProduct}
           />
-        )}
-
-        {selectedProduct && (
-          <DeleteProductDialog
-            open={isDeleteOpen}
-            onOpenChange={setIsDeleteOpen}
-            product={selectedProduct}
+          <AppPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            pageSize={params.limit ?? 10}
+            onPageChange={goToPage}
+            onPageSizeChange={(size) => {
+              setParams((prev) => ({
+                ...prev,
+                limit: size,
+                skip: 0,
+              }))
+            }}
           />
-        )}
+
+          {selectedProduct && (
+            <EditProductDialog
+              open={isEditOpen}
+              onOpenChange={setIsEditOpen}
+              product={selectedProduct}
+            />
+          )}
+
+          {selectedProduct && (
+            <DeleteProductDialog
+              open={isDeleteOpen}
+              onOpenChange={setIsDeleteOpen}
+              product={selectedProduct}
+            />
+          )}
+        </div>
+        <div className="sticky top-0 h-screen border-l">
+          <div className="border-b px-4 py-3">
+            <h2 className="font-medium">Product Details</h2>
+          </div>
+          <ProductPanel product={selectedProduct} />
+        </div>
       </div>
     </>
   )
