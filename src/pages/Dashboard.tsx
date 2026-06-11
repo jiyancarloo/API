@@ -6,7 +6,7 @@ import LowProductStats from "@/components/Dashboard/lowstock-products"
 export default function Dashboard() {
   return (
     <>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 p-6">
         <section className="grid gap-3 sm:grid-cols-1 lg:grid-cols-4">
           <StatCards />
         </section>
