@@ -17,7 +17,6 @@ import { Button } from "../ui/button"
 import { Badge } from "../ui/badge"
 export default function RecentProducts() {
   const { recentProducts } = useDashboardStats()
-
   return (
     <Card>
       <CardHeader>
@@ -30,9 +29,9 @@ export default function RecentProducts() {
       </CardHeader>
       <CardContent className="space-y-3">
         {recentProducts.map((recent) => (
-          <Item variant="outline" key={recent.id} size="sm">
+          <Item variant="outline" key={recent.id}>
             <ItemMedia variant="image">
-              <img src={recent.thumbnail} className="h-14 w-14" />
+              <img src={recent.thumbnail} />
             </ItemMedia>
             <ItemContent className="line-clamp-1">
               <ItemTitle>{recent.title}</ItemTitle>
