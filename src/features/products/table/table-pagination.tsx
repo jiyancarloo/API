@@ -36,7 +36,7 @@ export function AppPagination({
   onPageChange,
   onPageSizeChange,
 }: PaginationProps) {
-  const PAGE_SIZES = [5, 13, 15, 20]
+  const PAGE_SIZES = [5, 10, 15, 20]
   const isFirstPage = currentPage === 1
   const isLastPage = currentPage === totalPages
 
