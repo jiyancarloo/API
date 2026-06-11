@@ -4,7 +4,6 @@ type ProductPanelProps = {
 }
 
 import {
-  Card,
   CardContent,
   CardDescription,
   CardHeader,
@@ -13,6 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { getProductInventoryStatus } from "../utils/product.utils"
 import { Progress } from "@/components/ui/progress"
+import { Separator } from "@/components/ui/separator"
 
 export default function ProductPanel({ product }: ProductPanelProps) {
   if (!product) {
@@ -24,76 +24,110 @@ export default function ProductPanel({ product }: ProductPanelProps) {
   }
 
   const status = getProductInventoryStatus(product.stock)
+  const StatusIcon = status.icon
   const stockPercentage = Math.min(100, product.stock)
   return (
     <>
-      <div className="justify-content-center flex items-center gap-2 border-b p-6">
+      <div className="justify-content-center flex items-center gap-2 p-6">
         <img
           src={product.images[0]}
           alt={product.title}
-          className="h-40 w-40 rounded-xl object-cover"
+          className="h-32 w-32 object-cover"
         />
 
-        <div className="mt-4">
+        <div>
           <h2 className="text-xl font-semibold">{product.title}</h2>
-
           <span>{product.category}</span>
         </div>
       </div>
+      <Separator />
 
-      <Card className="mx-4 mt-4">
+      <div className="py-6">
         <CardHeader>
-          <CardDescription>Inventory</CardDescription>
-
-          <CardTitle>{product.stock} units</CardTitle>
+          <CardTitle>Inventory</CardTitle>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="mt-4 space-y-4">
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="text-3xl font-semibold">{product.stock}</p>
+              <p className="text-sm text-muted-foreground">Available Units</p>
+            </div>
+            <div
+              className={`flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ${status.className}`}
+            >
+              {status.label}
+              <StatusIcon className="h-3 w-3" />
+            </div>
+          </div>
+
           <Progress value={stockPercentage} />
+          <p className="text-sm text-muted-foreground">{status.description}</p>
         </CardContent>
-      </Card>
+      </div>
 
-      <Card className="mx-4 mt-4">
-        <CardHeader>
-          <CardDescription>Pricing</CardDescription>
+      <Separator />
 
-          <CardTitle>${product.price}</CardTitle>
+      <div className="py-6">
+        <CardHeader className="">
+          <CardTitle>Pricing</CardTitle>
         </CardHeader>
-      </Card>
 
-      <Card className="mx-4 mt-4">
+        <CardContent className="mt-4 space-y-3">
+          <div className="flex justify-between">
+            <span className="text-sm text-muted-foreground">Unit Price</span>
+
+            <span>${product.price}</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span className="text-sm text-muted-foreground">
+              Inventory Value
+            </span>
+
+            <span>${(product.price * product.stock).toLocaleString()}</span>
+          </div>
+        </CardContent>
+      </div>
+      <Separator />
+
+      <div className="py-6">
         <CardHeader>
           <CardTitle>Organization</CardTitle>
         </CardHeader>
-
-        <CardContent className="space-y-4">
+        <CardContent className="mt-4 space-y-3">
           <div className="flex justify-between">
-            <span className="text-muted-foreground">Category</span>
-
-            <span>{product.category}</span>
+            <p className="text-sm text-muted-foreground">Category</p>
+            <p className="text-sm leading-relaxed">{product.category}</p>
           </div>
 
           <div className="flex justify-between">
-            <span className="text-muted-foreground">Brand</span>
+            <p className="text-sm text-muted-foreground"> Brand</p>
 
-            <span>{product.brand}</span>
+            <p className="text-sm leading-relaxed">{product.brand ?? "N/A"}</p>
+          </div>
+          <div className="flex justify-between">
+            <p className="text-sm text-muted-foreground"> Tags</p>
+
+            <div className="flex flex-wrap justify-end gap-2">
+              {product.tags.map((tag) => (
+                <Badge variant="secondary">{tag}</Badge>
+              ))}
+            </div>
           </div>
         </CardContent>
-      </Card>
+      </div>
 
-      <Card className="mx-4 mt-4">
+      <Separator />
+      <div className="py-6">
         <CardHeader>
-          <CardTitle>Tags</CardTitle>
+          <CardDescription>Description</CardDescription>
         </CardHeader>
 
-        <CardContent className="flex flex-wrap gap-2">
-          {product.tags.map((tag) => (
-            <Badge key={tag} variant="outline">
-              {tag}
-            </Badge>
-          ))}
+        <CardContent>
+          <p className="text-sm leading-relaxed">{product.description}</p>
         </CardContent>
-      </Card>
+      </div>
     </>
   )
 }
