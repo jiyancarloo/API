@@ -6,7 +6,7 @@ import { useDebounce } from "./useDebounce"
 
 export function useProduct() {
   const [params, setParams] = useState<ProductParams>({
-    limit: 13,
+    limit: 15,
     skip: 0,
     sortBy: "title",
     order: "asc",
